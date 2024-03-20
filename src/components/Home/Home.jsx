@@ -1,26 +1,20 @@
-import  { useEffect } from "react";
+import React, { useEffect } from "react";
 import MovieListing from "../MovieListing/MovieListing";
-import MovieApi from "../../common/apis/MovieApi";
-import { APIkey } from "../../common/apis/MovieApiKey";
 import { useDispatch } from "react-redux";
-import { addMovies } from "../../features/movies/MovieSlice";
+import {
+  fetchAsyncMovies,
+  fetchAsyncShows,
+} from "../../features/movies/MovieSlice";
 const Home = () => {
-  const movieText = "Harry";
   const dispatch = useDispatch();
+  const movieText = "harry";
+  const showText = "movies";
   useEffect(() => {
-    const fetchMovies = async () => {
-      const response = await MovieApi.get(
-        `?apikey=${APIkey}&s=${movieText}&type=movie`,
-      ).catch((err) => {
-        console.log(err);
-      });
-      dispatch(addMovies(response.data));
-      console.log("da talaq msg 2 pery print kai")
-    };
-    fetchMovies();
+    dispatch(fetchAsyncMovies(movieText));
+    dispatch(fetchAsyncShows(showText));
   }, [dispatch]);
 
-  return <div>{<MovieListing />}</div>;
+  return <MovieListing />;
 };
 
 export default Home;
