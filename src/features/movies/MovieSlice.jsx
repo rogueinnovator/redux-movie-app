@@ -1,31 +1,30 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import MovieApi from "../../common/apis/MovieApi";
-import { APIkey } from "../../common/apis/MovieApiKey";
-
+const APIkey = import.meta.env.VITE_API_KEY;
 export const fetchAsyncMovies = createAsyncThunk(
   "movies/fetchAsyncMovies",
   async (term) => {
     const response = await MovieApi.get(
-      `?apiKey=${APIkey}&s=${term}&type=movie`,
+      `?apiKey=${APIkey}&s=${term}&type=movie`
     );
     return response.data;
-  },
+  }
 );
 export const fetchAsyncShows = createAsyncThunk(
   "Shows/fetchAsyncShows",
   async (term) => {
     const response = await MovieApi.get(
-      `?apiKey=${APIkey}&s=${term}&type=series`,
+      `?apiKey=${APIkey}&s=${term}&type=series`
     );
     return response.data;
-  },
+  }
 );
 export const fectAsynchMovieorShowDetails = createAsyncThunk(
   "Shows/fectAsynchMovieorShowDetails",
   async (id) => {
     const response = await MovieApi.get(`?apiKey=${APIkey}&i=${id}&Plot=full`);
     return response.data;
-  },
+  }
 );
 const initialState = {
   movies: {},
@@ -80,7 +79,7 @@ export const getAllmovies = (state) => state.movies.movies;
 export const getAllshows = (state) => state.movies.shows;
 export const getloadingShows = (state) => state.movies.loadingShows;
 export const getloadingDetails = (state) => state.movies.loadingDetails;
-export const getloadingMovies = (state) => state.movies.loadingMovies;  
+export const getloadingMovies = (state) => state.movies.loadingMovies;
 export const getMovieOrShowDetails = (state) =>
   state.movies.movieOrShowaDetails;
 export default movieSlice.reducer;
